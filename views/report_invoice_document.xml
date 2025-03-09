@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Heredar la plantilla original -->
     <template id="report_invoice_document_barcode" inherit_id="account.report_invoice_document">
-        
-        <!-- 1. Agregar el código de barras general al lado del número de factura -->
+        <!-- Código de barras general -->
         <xpath expr="//h2/span[@t-field='o.name']" position="after">
-            <img t-if="o.barcode_image" t-att-src="'data:image/png;base64,' + o.barcode_image" style="max-height: 50px; margin-left: 10px; vertical-align: middle;"/>
+            <img t-if="o.barcode_image" t-att-src="'data:image/png;base64,' + o.barcode_image.decode()" style="max-height: 50px; margin-left: 10px; vertical-align: middle;"/>
         </xpath>
 
-        <!-- 2. Agregar una columna en el encabezado de la tabla para el código de barras por línea -->
+        <!-- Columna en el encabezado -->
         <xpath expr="//table[@name='invoice_line_table']/thead/tr" position="inside">
             <th name="th_barcode" class="text-center">Barcode</th>
         </xpath>
 
-        <!-- 3. Agregar el código de barras por línea en las filas de productos -->
+        <!-- Código de barras por línea -->
         <xpath expr="//table[@name='invoice_line_table']/tbody//t[@name='account_invoice_line_accountable']" position="inside">
             <td class="text-center">
-                <img t-if="line.line_barcode_image" t-att-src="'data:image/png;base64,' + line.line_barcode_image" style="max-height: 30px;"/>
+                <img t-if="line.line_barcode_image" t-att-src="'data:image/png;base64,' + line.line_barcode_image.decode()" style="max-height: 30px;"/>
             </td>
         </xpath>
-        
     </template>
 </odoo>
