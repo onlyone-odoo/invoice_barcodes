@@ -15,13 +15,15 @@ class AccountMoveLine(models.Model):
     @api.depends("move_id.name", "product_id.default_code", "quantity")
     def _compute_line_barcode_image(self):
         for line in self:
-            if line.move_id.name and line.product_id:
+            if line.move_id.name and line.product_id and line.move_id.name != "/":
                 invoice_number = line.move_id.name.replace("/", "")
                 product_ref = line.product_id.default_code or "0000"
                 quantity = "{:.2f}".format(line.quantity)
                 barcode_data = f"{invoice_number}{product_ref}{quantity}"
-                EAN128 = barcode.get_barcode_class("ean128")
-                ean = EAN128(barcode_data, writer=ImageWriter())
+                GS1_128 = barcode.get_barcode_class(
+                    "gs1_128"
+                )  # Cambiado de "ean128" a "gs1_128"
+                ean = GS1_128(barcode_data, writer=ImageWriter())
                 buffer = BytesIO()
                 ean.write(buffer)
                 line.line_barcode_image = base64.b64encode(buffer.getvalue())
