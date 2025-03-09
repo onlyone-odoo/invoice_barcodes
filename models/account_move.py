@@ -27,3 +27,8 @@ class AccountMove(models.Model):
                 ean.write(buffer)
                 record.barcode_image = base64.b64encode(buffer.getvalue())
                 buffer.close()
+
+    def action_regenerate_barcodes(self):
+        self._compute_barcode_image()
+        self.invoice_line_ids._compute_line_barcode_image()
+        return True
