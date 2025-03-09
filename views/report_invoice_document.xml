@@ -14,7 +14,7 @@
         </xpath>
 
         <!-- 3. Agregar el código de barras por línea en las filas de productos -->
-        <xpath expr="//table[@name='invoice_line_table']/tbody//tr[@name='account_invoice_line_accountable']" position="inside">
+        <xpath expr="//table[@name='invoice_line_table']/tbody//t[@name='account_invoice_line_accountable']" position="inside">
             <td class="text-center">
                 <img t-if="line.line_barcode_image" t-att-src="'data:image/png;base64,' + line.line_barcode_image" style="max-height: 30px;"/>
             </td>
