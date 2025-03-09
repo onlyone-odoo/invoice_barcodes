@@ -13,12 +13,11 @@
     "website": "https://onlyone.odoo.com/",
     "license": "AGPL-3",
     "category": "Technical Settings",
-    "version": "17.0.4.2.1",
+    "version": "17.0.5.3.1",
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
     "external_dependencies": {"python": ["barcode"]},
-    "post_init_hook": "post_init_hook",
     "depends": ["account"],
     "data": [
         "views/report_invoice_document.xml",
